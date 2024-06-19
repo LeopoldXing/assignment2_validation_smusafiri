@@ -1,6 +1,6 @@
 <?php
-/*******w******** 
-    
+/*******w********
+
     Name: Samuel Musafiri
     Date: 2024-05-27
     Description: Form Validation
@@ -44,7 +44,7 @@ function itemsExist() {
     global $items;
     $totalQuantity = 0;
 
-    foreach($items as $key => $item) {
+    foreach($items as $item) {
     $totalQuantity += $item['quantity'];
     }
 
@@ -57,9 +57,7 @@ function itemsExist() {
 
 // Getting the total amount of an item
 function getItemTotal($item) {
-    $itemTotal = $item['price'] * $item['quantity'];
-
-    return $itemTotal;
+    return $item['price'] * $item['quantity'];
 }
 
 // validate the POST data
@@ -70,7 +68,7 @@ function validateData() {
     // Checking if email exists
     $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
     if (!$email) {
-        $errors[] = 'Email is not valid or not provided!'; 
+        $errors[] = 'Email is not valid or not provided!';
      }
 
       // Validate credit card number
@@ -94,7 +92,7 @@ function validateData() {
 
 
     // Validate credit card month
-    $currentMonth = date('n'); 
+    $currentMonth = date('n');
     $creditCardMonth = ($currentYear == $_POST['year']) ? filter_input(INPUT_POST, 'month', FILTER_VALIDATE_INT, ['options' => ['min_range' => $currentMonth, 'max_range' => 12]]) : filter_input(INPUT_POST, 'month', FILTER_VALIDATE_INT, ['options' => ['min_range' => 1, 'max_range' => 12]]);
     if (!$creditCardMonth) {
         $errors[] = 'Credit card expiration month is invalid or missing!';
@@ -165,11 +163,10 @@ if (!$isDataValid) {
 } else {
     if (itemsExist()) {
         $invoiceDetails = "Thanks for your order " . htmlspecialchars($fullName) . ".";
-        $displayInvoice = true;
     } else {
         $invoiceDetails = "Your cart is empty.";
-        $displayInvoice = true;
     }
+    $displayInvoice = true;
 }
 ?>
 
@@ -245,7 +242,7 @@ if (!$isDataValid) {
     </table>
     <?php endif; ?>
     </div>
-  
+
     <?php endif; ?>
 
 </body>
